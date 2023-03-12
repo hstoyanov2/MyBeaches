@@ -1,0 +1,60 @@
+.main-container {
+  padding: 0;
+  margin: 0;
+  background-image: url("../../beach-wallpaper.jpg");
+  width: 100vw;
+  height: 100vh;
+}
+
+.main-title {
+  padding: 0;
+  margin: auto;
+}
+
+.nav {
+  display: flex;
+  /* align-content: end; */
+}
+
+.nav-link {
+  text-decoration: none;
+  /* margin-left: auto; */
+  color: white;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 24px;
+  margin: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+.nav-logo {
+  background-image: url("./static/beach-logo.png");
+  height: 60px;
+  width: 95px;
+  margin-right: auto;
+}
+
+.content-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.beach-list {
+  /* padding-top: 300px; */
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+}
+
+.card {
+  padding: 20px;
+}
+
+.login-form {
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+  margin: auto;
+}
