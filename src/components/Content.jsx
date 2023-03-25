@@ -3,8 +3,19 @@ import BeachCard from './BeachCard';
 
 const Content = (props) => {
     const { contentTitle, description, form = {}, list = {} } = props;
-    
+    const [beaches, setBeaches] = React.useState([])
     const cards = [1, 2, 3, 4]
+
+    
+    React.useEffect(() => {
+        fetch('http://localhost:3030/jsonstore/beaches/')
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data);
+            setBeaches(data)})
+    }, [])
+
+    console.log(beaches);
 
     return (
         <div className="content-div">
