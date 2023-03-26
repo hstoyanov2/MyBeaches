@@ -23,7 +23,7 @@ const Content = (props) => {
             <p style={{margin: 'auto'}}>{description}</p>
             <h3 style={{margin: 'auto', paddingTop: '300px'}}>Top rated locations:</h3>
             <div className="beach-list">
-                {cards.map(card => <BeachCard card={card}/>)}
+                {Object.values(beaches).map(beach => <BeachCard card={beach}/>)}
             </div>
         </div>
     )

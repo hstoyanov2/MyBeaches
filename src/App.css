@@ -1,3 +1,7 @@
+* {
+  font-family: 'Varela Round', sans-serif;
+}
+
 .main-container {
   padding: 0;
   margin: 0;
@@ -25,14 +29,14 @@
   margin: 20px;
   padding-bottom: 20px;
   margin-bottom: 10px;
-  padding-top: 10px;
+  padding-top: 20px;
   margin-top: 10px;
 }
 
 .nav-logo {
   background-image: url("./static/beach-logo.png");
-  height: 60px;
-  width: 95px;
+  height: 80px;
+  width: 100px;
   margin-right: auto;
 }
 
@@ -46,10 +50,6 @@
   display: flex;
   flex-direction: row;
   margin: auto;
-}
-
-.card {
-  padding: 20px;
 }
 
 .login-form {
