@@ -24,7 +24,7 @@ const Navbar = ({userAuth}) => {
     }
 
     React.useEffect(() => {
-        if (Object.keys(userAuth).length == 0 || userAuth === undefined || userAuth === null) {
+        if (Object.keys(userAuth).length === 0 || userAuth === undefined || userAuth === null) {
             hasUser(false);
         } else {
             hasUser(true);
@@ -36,17 +36,17 @@ const Navbar = ({userAuth}) => {
         <nav className="nav">
             <img src={beachLogo} alt="beach logo" className="nav-logo" onClick={navigateToHomePage}/>
             <div className="nav-link">{weather?.current_weather?.weathercode}</div>
-            <a href='/beaches' className="nav-link">Beaches</a>
-            <a href='/my-beaches' className="nav-link">My Beaches</a>
-            <a href='/account' className="nav-link">Account</a>
-            <a href='/' className="nav-link" onClick={onLogout}>Logout</a>
+            <NavLink to='/beaches' className="nav-link">Beaches</NavLink>
+            <NavLink to='/my-beaches' className="nav-link">My Beaches</NavLink>
+            <NavLink to='/account' className="nav-link">Account</NavLink>
+            <NavLink to='/' className="nav-link" onClick={onLogout}>Logout</NavLink>
         </nav> :
         <nav className="nav">
             <NavLink to="/" className="nav-logo">
                 <img src={beachLogo} alt="beach logo" className="nav-logo"/>
             </NavLink>
             <div className="nav-link">{weather?.current_weather?.weathercode}</div>
-            <a href='/beaches' className="nav-link">Beaches</a>
+            <NavLink to='/beaches' className="nav-link">Beaches</NavLink>
             <NavLink to='/login' className="nav-link">Login</NavLink>
             <NavLink to='/register' className="nav-link">Register</NavLink>
         </nav>

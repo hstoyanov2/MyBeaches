@@ -11,11 +11,11 @@ const LoginForm = () => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target));
         console.log(data);
-        if (data.password.length < 6) {
-            alert('Password must be atleast 6 characters long!');
-        } else {
+        // if (data.password.length < 6) {
+        //     alert('Password must be atleast 6 characters long!');
+        // } else {
             onLogin(data);
-        }
+        // }
     }
     return (
         <div className={styles.container}>
@@ -31,8 +31,6 @@ const LoginForm = () => {
             <input className={styles.input} name="email" type="email" placeholder="example@domain.com" />
             <label className={styles.label} htmlFor="">Password</label>
             <input className={styles.input} name="password" type="password" placeholder="8 characters or more" />
-            {/* <label htmlFor="">Repeat Password</label>
-            <input name="repeat-password" type="password" /> */}
             <button className={styles.button} type="submit">
                 Login
             </button>

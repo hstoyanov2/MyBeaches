@@ -1,0 +1,87 @@
+.container {
+    display: block;
+    position: relative;
+    z-index: 1;
+    height: 850px;
+    width: 350px;
+    margin: -750px auto;
+    background: linear-gradient(
+        to bottom,
+        rgb(101, 209, 255) 0%,
+        rgb(101, 209, 255) 40%,
+        #f6ef30 70%,
+        rgb(250, 233, 82) 80%,
+        rgb(250, 233, 82) 100%
+        ); /* W3C */
+    /* background-color: white; */
+    /* border: 1px solid gray; */
+    border-radius: 10px;
+}
+
+.logo {
+    height: 80px;
+    width: 100px;
+    /* margin: auto; */
+    padding-top: 8px;
+}
+
+.topContainer {
+    height: 200px;
+    width: 350px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.imageContainer {
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    border: 1px solid gray;
+    border-radius: 75px;
+    background-color: rgb(252, 224, 44);
+}
+
+.heading {
+    margin: auto;
+}
+
+.form {
+    padding-top: 50px;
+    width: 300px;
+    margin: auto;
+}
+
+.label {
+    display: block;
+    font-size: 20px;
+    padding: 0px 0px 0px 1px;
+    margin-top: 14px;
+}
+
+.input {
+    display: block;
+    height: 30px;
+    width: 292px;
+    border-left: 0px;
+    border-top: 0px;
+    border-right: 0px;
+    border-bottom: 2px solid gray;
+    background: transparent;
+    /* padding-left: 15px; */
+}
+
+.input:hover {
+    border-left: 2px solid gray;
+    border-top: 2px solid gray;
+    border-right: 2px solid gray;
+    border-bottom: 2px solid gray;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+}
