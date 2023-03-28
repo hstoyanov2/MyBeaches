@@ -47,7 +47,7 @@ const Content = (props) => {
                     body: JSON.stringify(data)
                 })
                 if (!response.ok) {
-                    throw new Error(response.status);vcxz
+                    throw new Error(response.status);
                 } else if (response.status === 204) {
                     return {};
                 } else {
