@@ -1,34 +1,36 @@
 import React from 'react';
 import styles from './CreateBeachFormStyles.module.css';
 import logo from '../static/beach-logo.png';
-import { AuthContext } from '../contexts/AuthContext';
 import Button from './Button';
 
 
 const CreateBeachForm = ({ handleClose, createBeach }) => {
-    const { onLogin } = React.useContext(AuthContext);
+    
+    const initialValues = {
+        name: '',
+        location: '',
+        country: '',
+        image: '',
+        rating: {
+            beach: 0,
+            infrastructure: 0,
+            prices: 0
+        }
+    };
+
+    const [values, setValues] = React.useState(initialValues);
+
+    const onChangeHandler = (e) => {
+        if (e.target.name === 'beach' || e.target.name === 'infrastructure' || e.target.name === 'prices') {
+            setValues(state => ({...state, rating : { ...state.rating, [e.target.name]: e.target.value }}));
+        } else {
+            setValues(state => ({...state, [e.target.name]: e.target.value}));
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target.parentNode.parentNode));
-        const dataMap = {
-            name: data.name,
-            location: data.location,
-            country: data.country,
-            image: data.image,
-            rating: {
-                beach: data.beach,
-                infrastructure: data.infrastructure,
-                prices: data.prices,
-            }
-        }
-        console.log(dataMap);
-        createBeach(dataMap);
-        // if (data.password.length < 6) {
-        //     alert('Password must be atleast 6 characters long!');
-        // } else {
-            // onLogin(data);
-        // }
+        createBeach(values);
     }
 
     return (
@@ -41,19 +43,19 @@ const CreateBeachForm = ({ handleClose, createBeach }) => {
             </div>
             <form className={styles.form} onSubmit={handleSubmit}>        
                 <label className={styles.label} htmlFor="">Name</label>
-                <input className={styles.input} name="name" type="text" placeholder="Cool beach" />
+                <input className={styles.input} name="name" type="text" placeholder="Cool beach" onChange={onChangeHandler}/>
                 <label className={styles.label} htmlFor="">Location</label>
-                <input className={styles.input} name="location" type="text" placeholder="8 characters or more" />
+                <input className={styles.input} name="location" type="text" placeholder="8 characters or more" onChange={onChangeHandler}/>
                 <label className={styles.label} htmlFor="">Country</label>
-                <input className={styles.input} name="country" type="text" placeholder="8 characters or more" />
+                <input className={styles.input} name="country" type="text" placeholder="8 characters or more" onChange={onChangeHandler}/>
                 <label className={styles.label} htmlFor="">Image</label>
-                <input className={styles.input} name="image" type="text" placeholder="8 characters or more" />
+                <input className={styles.input} name="image" type="text" placeholder="8 characters or more" onChange={onChangeHandler}/>
                 <label className={styles.label} htmlFor="">Beach rating</label>
-                <input className={styles.input} name="beach" type="number" placeholder="8 characters or more" />
+                <input className={styles.input} name="beach" type="number" placeholder="8 characters or more" onChange={onChangeHandler}/>
                 <label className={styles.label} htmlFor="">Infrastructure rating</label>
-                <input className={styles.input} name="infrastructure" type="number" placeholder="8 characters or more" />
+                <input className={styles.input} name="infrastructure" type="number" placeholder="8 characters or more" onChange={onChangeHandler}/>
                 <label className={styles.label} htmlFor="">Prices rating</label>
-                <input className={styles.input} name="prices" type="number" placeholder="8 characters or more" />
+                <input className={styles.input} name="prices" type="number" placeholder="8 characters or more" onChange={onChangeHandler}/>
                 <div className={styles.buttonContainer}>
                     <Button color="red" text="Close" type="button" onClickFunction={handleClose} />
                     <Button color="green" text="Create" type="submit" onClickFunction={handleSubmit} />

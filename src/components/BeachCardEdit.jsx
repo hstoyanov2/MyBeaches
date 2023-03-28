@@ -4,25 +4,15 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import Button from './Button';
 
-const BeachCardDetails = () => {
+const BeachCardEdit = () => {
     const { beachId } = useParams();
     const [beach, setBeach] = React.useState({});
 
     const { auth } = React.useContext(AuthContext);
 
-    const navigate = useNavigate();
+    const { navigate } = useNavigate();
 
-    React.useEffect(() => {
-        fetch(`http://localhost:3030/data/beaches/${beachId}`)
-        .then(response => response.json())
-        .then(data => setBeach(data));
-    }, [beachId])
-    
-    const handleEdit = () => {
-        navigate(`/beaches/${beachId}/edit`)
-    };
-
-    const handleDelete = async (id) => {
+    const handleSave = async (id) => {
         try {
             const response = await fetch(`http://localhost:3030/data/beaches/${beachId}`, {
                 method: "DELETE",
@@ -34,11 +24,9 @@ const BeachCardDetails = () => {
             if (!response.ok) {
                 throw new Error(response.status);
             } else if (response.status === 204) {
-                console.log('tupo');
                 return {};
             } else {
                 const result = await response.json();
-                navigate('/beaches');
                 console.log(result);
             }
         } catch (err) {
@@ -62,11 +50,10 @@ const BeachCardDetails = () => {
                 <p className="rating-stat">Infrastructure: {beach.rating?.infrastructure}</p>
                 <p className="rating-stat">Prices: {beach.rating?.prices}</p>
             </div>
-            {auth && auth._id === beach._ownerId && <Button color="yellow" text="Edit" type="button" onClickFunction={handleEdit} />}
-            {auth && auth._id === beach._ownerId && <Button color="red" text="Delete" type="button" onClickFunction={handleDelete} />}
+            {auth && auth._id === beach._ownerId && <Button color="green" text="Save" type="submit" onClickFunction={handleSave} />}
         </div>
 
     )
 }
 
-export default BeachCardDetails;
+export default BeachCardEdit;

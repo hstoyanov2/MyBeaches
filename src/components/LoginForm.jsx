@@ -2,10 +2,13 @@ import React from 'react';
 import styles from './LoginFormStyles.module.css';
 import logo from '../static/beach-logo.png';
 import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const LoginForm = () => {
     const { onLogin } = React.useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,6 +18,8 @@ const LoginForm = () => {
         //     alert('Password must be atleast 6 characters long!');
         // } else {
             onLogin(data);
+            navigate('/beaches');
+
         // }
     }
     return (

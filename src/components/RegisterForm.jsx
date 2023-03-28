@@ -2,10 +2,13 @@ import React from 'react';
 import styles from './LoginFormStyles.module.css';
 import logo from '../static/beach-logo.png';
 import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterForm = () => {
     const { onRegister } = React.useContext(AuthContext);
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,6 +20,7 @@ const RegisterForm = () => {
             alert('Password do not match!');
         } else {
             onRegister(data);
+            navigate('/beaches');
         }
     }
     return (

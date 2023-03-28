@@ -4,10 +4,10 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
 const Navbar = ({userAuth}) => {
-    const [user, hasUser] = React.useState(false);
+    // const [user, hasUser] = React.useState(false);
     const [weather, setWeather] = React.useState({});
 
-    const { onLogout } = React.useContext(AuthContext)
+    const { hasUser, onLogout } = React.useContext(AuthContext)
 
     React.useEffect(() => {
         fetch("https://api.open-meteo.com/v1/forecast?latitude=42.15&longitude=24.75&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FMoscow")
@@ -22,17 +22,17 @@ const Navbar = ({userAuth}) => {
     const navigateToHomePage = () => {
         navigate('/')
     }
+    
+    // React.useEffect(() => {
+    //     if (Object.keys(userAuth).length === 0 || userAuth === undefined || userAuth === null) {
+    //         hasUser(false);
+    //     } else {
+    //         hasUser(true);
+    //     }
 
-    React.useEffect(() => {
-        if (Object.keys(userAuth).length === 0 || userAuth === undefined || userAuth === null) {
-            hasUser(false);
-        } else {
-            hasUser(true);
-        }
+    // }, [hasUser])
 
-    }, [userAuth])
-
-    return ( user ?
+    return ( hasUser ?
         <nav className="nav">
             <img src={beachLogo} alt="beach logo" className="nav-logo" onClick={navigateToHomePage}/>
             <div className="nav-link">{weather?.current_weather?.weathercode}</div>
