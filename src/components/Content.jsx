@@ -3,6 +3,7 @@ import BeachCard from './BeachCard';
 import CreateBeachForm from './CreateBeachForm';
 import Button from './Button';
 import { AuthContext } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Content = (props) => {
     const { contentTitle, description, secondHeading, fetchUrl = '', listOptions = {}, containerRef, hasUser } = props;
@@ -12,22 +13,22 @@ const Content = (props) => {
     const { auth } = React.useContext(AuthContext);
     console.log(auth);
     
-    // const baseUrl = 'http://localhost:3030/data/beaches';
+    const navigate = useNavigate();
 
     React.useEffect(() => {
         fetch(fetchUrl)
         .then(response => response.json())
         .then((data) => {
             console.log(data);
-            setList(data)})
+            setList(Object.values(data))})
     }, [fetchUrl])
 
-    React.useEffect(() => {
-        console.log(containerRef?.current.backgroundColor);
-        if (containerRef) {
-            containerRef.current.backgroundColor = 'gray';
-        }
-    }, [create])
+    // React.useEffect(() => {
+    //     console.log(containerRef?.current.backgroundColor);
+    //     if (containerRef) {
+    //         containerRef.current.backgroundColor = 'gray';
+    //     }
+    // }, [create])
 
     const handleClose = () => {
         setCreate(false);
@@ -46,11 +47,14 @@ const Content = (props) => {
                     body: JSON.stringify(data)
                 })
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    throw new Error(response.status);vcxz
                 } else if (response.status === 204) {
                     return {};
                 } else {
-                    setList([...list, data]);
+                    const result = await response.json();
+                    setList([...list, result]);
+                    setCreate(false);
+                    navigate('/beaches');
                 }
             } else {
                 throw new Error('There is no user logged in.')
