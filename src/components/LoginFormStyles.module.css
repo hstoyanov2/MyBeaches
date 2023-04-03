@@ -47,7 +47,7 @@
 }
 
 .form {
-    padding-top: 50px;
+    padding-top: 10px;
     width: 300px;
     margin: auto;
 }
@@ -76,4 +76,24 @@
     border-top: 2px solid gray;
     border-right: 2px solid gray;
     border-bottom: 2px solid gray;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    padding-top: 20px;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    color: black;
+    font-family: 'Varela Round', sans-serif;
+    margin: auto;
+    padding-top: 10px;
+    font-size: 18px;
+    position: block;
 }

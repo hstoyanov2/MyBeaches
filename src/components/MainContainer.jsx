@@ -32,7 +32,12 @@ const MainContainer = () => {
                 body: JSON.stringify(data)
             });
             if (!response.ok) {
-                throw new Error(response.status);
+                if (response.status === 403) {
+                    alert('Email and/or password are not correct.');
+                } else {
+                    alert(`Error logging in: ${response.status}.`);
+                }
+                throw new Error(response);
             } else if (response.status === 204) {
                 return {};
             } else {
@@ -42,7 +47,7 @@ const MainContainer = () => {
                 setHasUser(true);
             }
         } catch (err) {
-            console.log(err);
+            
         }
     }
 
@@ -56,6 +61,11 @@ const MainContainer = () => {
                 body: JSON.stringify(data)
             });
             if (!response.ok) {
+                if (response.status === 409) {
+                    alert('Email already exists.');
+                } else {
+                    alert(`Error logging in: ${response.status}.`);
+                }
                 throw new Error(response.status);
             } else if (response.status === 204) {
                 return {};

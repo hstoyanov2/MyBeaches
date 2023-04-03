@@ -1,26 +1,32 @@
 import React from 'react';
 import styles from './LoginFormStyles.module.css';
 import logo from '../static/beach-logo.png';
+import Button from './Button';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 
 const LoginForm = () => {
+
+    const initialValues = {
+        email: '',
+        password: ''
+    }
+
+    const [userLogin, setUserLogin] = React.useState(initialValues);
     const { onLogin } = React.useContext(AuthContext);
 
     const navigate = useNavigate();
 
+    const onChangeHandler = (e) => {
+        setUserLogin(state => ({...state, [e.target.name]: e.target.value}));
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target));
-        console.log(data);
-        // if (data.password.length < 6) {
-        //     alert('Password must be atleast 6 characters long!');
-        // } else {
-            onLogin(data);
-            navigate('/beaches');
-
-        // }
+        onLogin(userLogin);
+        navigate('/beaches');
     }
     return (
         <div className={styles.container}>
@@ -33,12 +39,13 @@ const LoginForm = () => {
             <form className={styles.form} onSubmit={handleSubmit}>
 
             <label className={styles.label} htmlFor="">Email</label>
-            <input className={styles.input} name="email" type="email" placeholder="example@domain.com" />
+            <input className={styles.input} name="email" type="email" placeholder="example@domain.com" onChange={onChangeHandler} />
             <label className={styles.label} htmlFor="">Password</label>
-            <input className={styles.input} name="password" type="password" placeholder="8 characters or more" />
-            <button className={styles.button} type="submit">
-                Login
-            </button>
+            <input className={styles.input} name="password" type="password" placeholder="8 characters or more" onChange={onChangeHandler} />
+            <div className={styles.buttonContainer}>
+                <Button color="green" text="Log in" type="submit" />
+            </div>
+            <Link className={styles.link} to='/register'>To register</Link>
             </form>
         </div>
     )
