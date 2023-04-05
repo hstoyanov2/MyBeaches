@@ -3,7 +3,7 @@ import styles from './BeachCardStyles.module.css';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 
-const BeachCard = ({card}) => {
+const BeachCard = ({ card, editBeach }) => {
     const { name, location, rating, country, image, _id } = card;
     console.log(card);
     const navigate = useNavigate()
@@ -11,7 +11,7 @@ const BeachCard = ({card}) => {
     const handleClick = () => {
         navigate(`/beaches/${_id}`);
     }
-
+    console.log('beach card');
     return (
         <>
             <div className={styles.card}>

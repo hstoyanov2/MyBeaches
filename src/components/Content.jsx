@@ -11,7 +11,6 @@ const Content = (props) => {
     const [list, setList] = React.useState([]);
 
     const { auth } = React.useContext(AuthContext);
-    console.log(auth);
     
     const navigate = useNavigate();
 
@@ -20,7 +19,12 @@ const Content = (props) => {
         .then(response => response.json())
         .then((data) => {
             console.log(data);
-            setList(Object.values(data))})
+            if (data.code === 200 || data.length > 0) {
+                setList(Object.values(data));
+            } else {
+                setList([]);
+            }
+        })
     }, [fetchUrl])
 
     // React.useEffect(() => {
@@ -33,7 +37,6 @@ const Content = (props) => {
     const handleClose = () => {
         setCreate(false);
     }
-    console.log(list);
 
     const createBeach = async (data) => {
         try {

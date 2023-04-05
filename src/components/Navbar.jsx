@@ -3,7 +3,7 @@ import beachLogo from '../static/beach-logo.png';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
-const Navbar = ({userAuth}) => {
+const Navbar = () => {
     // const [user, hasUser] = React.useState(false);
     const [weather, setWeather] = React.useState({});
 
@@ -15,7 +15,7 @@ const Navbar = ({userAuth}) => {
         .then(data => setWeather(data))
     }, [])
 
-    console.log(weather);
+    // console.log(weather);
 
     const navigate = useNavigate();
 
