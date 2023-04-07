@@ -9,23 +9,30 @@ const Content = (props) => {
     const { contentTitle, description, secondHeading, fetchUrl = '', listOptions = {}, containerRef, hasUser } = props;
     const [create, setCreate] = React.useState(false);
     const [list, setList] = React.useState([]);
-
+    // console.log(listOptions);
     const { auth } = React.useContext(AuthContext);
-    
+    // console.log(auth);
     const navigate = useNavigate();
 
+    let url = listOptions ? `${fetchUrl}?${listOptions?.filter}` : fetchUrl;
+    // console.log(url);
     React.useEffect(() => {
-        fetch(fetchUrl)
-        .then(response => response.json())
-        .then((data) => {
-            console.log(data);
-            if (data.code === 200 || data.length > 0) {
-                setList(Object.values(data));
-            } else {
-                setList([]);
-            }
-        })
-    }, [fetchUrl])
+        try {
+            fetch(url)
+            .then(response => response.json())
+            .then((data) => {
+                console.log(data);
+                if (data.code === 200 || data.length > 0) {
+                    setList(Object.values(data));
+                } else {
+                    setList([]);
+                }
+            })
+        } catch (err) {
+
+        }
+        
+    }, [fetchUrl, url])
 
     // React.useEffect(() => {
     //     console.log(containerRef?.current.backgroundColor);
@@ -89,7 +96,7 @@ const Content = (props) => {
                             return result;
                         };
                         return beach;
-                    })
+                    });
                     setList([updatedList]);
                 }
             } else {
@@ -113,5 +120,49 @@ const Content = (props) => {
         </div>
     )
 }
+
+const testBeaches = 
+{
+    "37ea250e-7f4d-44ef-a6c8-d48e00699975": {
+        "name":"Ammolofoi Beach",
+        "location":"Nea Peramos",
+        "country":"Greece",
+        "image":"https://i.ytimg.com/vi/HIMTTjqUyrw/maxresdefault.jpg",
+        "description": "Text description of beach Text description of beach Text description of beach Text description of beach ",
+        "rating": {
+            "beach":5,
+            "infrastructure":4.5,
+            "prices":4
+        },
+        "_id":"37ea250e-7f4d-44ef-a6c8-d48e00699975"
+    },
+    "4758308b-a1b3-435d-bab0-7c1c6ed953d6": {
+        "name":"Mesi Beach",
+        "location":"Mesi",
+        "country":"Greece",
+        "image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJDvsHZXQdIAaLu2SXxcg6Y5eChvIASVZdlTIetPmj3-tszVlaZiMz4dHStHSA05uMFgs&usqp=CAU",
+        "description": "Text description of beach Text description of beach Text description of beach Text description of beach ",
+        "rating": {
+            "beach":4.5,
+            "infrastructure":3.5,
+            "prices":4.5
+        },
+        "_id":"4758308b-a1b3-435d-bab0-7c1c6ed953d6"
+    },
+    "4b2124ff-1e61-4f04-9675-4489bc1ab429": {
+        "name":"Kavacite Beach",
+        "location":"Sozopol",
+        "country":"Bulgaria",
+        "image":"https://rezervaciq.com/img/objects/sights_1247_37744293100350062355084eae7bafc19e49766cb.jpg",
+        "description": "Text description of beach Text description of beach Text description of beach Text description of beach ",
+        "rating": {
+            "beach":4.5,
+            "infrastructure":5,
+            "prices":2.5
+        },
+        "_id":"4b2124ff-1e61-4f04-9675-4489bc1ab429"
+    }
+}
+
 
 export default Content;

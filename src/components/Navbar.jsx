@@ -7,7 +7,7 @@ const Navbar = () => {
     // const [user, hasUser] = React.useState(false);
     const [weather, setWeather] = React.useState({});
 
-    const { hasUser, onLogout } = React.useContext(AuthContext)
+    const { auth, hasUser, onLogout } = React.useContext(AuthContext)
 
     React.useEffect(() => {
         fetch("https://api.open-meteo.com/v1/forecast?latitude=42.15&longitude=24.75&hourly=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&current_weather=true&timezone=Europe%2FMoscow")
@@ -38,11 +38,11 @@ const Navbar = () => {
             <div className="nav-link">{weather?.current_weather?.weathercode}</div>
             <NavLink to='/beaches' className="nav-link">Beaches</NavLink>
             <NavLink to='/my-beaches' className="nav-link">My Beaches</NavLink>
-            <NavLink to='/account' className="nav-link">Account</NavLink>
+            <div className="nav-link">User: {<span style={{color: 'blue'}}>{auth.email}</span>}</div>
             <NavLink to='/' className="nav-link" onClick={onLogout}>Logout</NavLink>
         </nav> :
         <nav className="nav">
-            <NavLink to="/" className="nav-logo">
+            <NavLink to="/" className="nav-logo" style={{}}>
                 <img src={beachLogo} alt="beach logo" className="nav-logo"/>
             </NavLink>
             <div className="nav-link">{weather?.current_weather?.weathercode}</div>

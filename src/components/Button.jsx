@@ -9,6 +9,7 @@ const Button = ({ text, color, type, onClickFunction, customStyles }) => {
                         height: '40px',
                         borderRadius: '10px',
                         fontSize: '24px',
+                        cursor: 'pointer',
                         ...customStyles
                     }
                 }

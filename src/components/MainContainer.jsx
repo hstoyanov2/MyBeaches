@@ -123,7 +123,7 @@ const MainContainer = () => {
                         contentTitle="Find the perfect beach"
                         description="text a lot of text here text a lot of text here text a lot of text here text a lot of text here "
                         secondHeading="Top rated locations:"
-                        fetchUrl="http://localhost:3030/data/beaches/"
+                        fetchUrl="http://localhost:3030/data/beaches"
                         listOptions={null}
                         />} 
                     />
@@ -131,8 +131,18 @@ const MainContainer = () => {
                         contentTitle="A list of all the beaches"
                         description="Here you can find a list of all the beaches that users have created in this application. All this information gathered in one place along with user's rating and experiences will help you pick the ideal beach for this summer holiday. By clicking on the desired beach you will find more information about it."
                         secondHeading="Beach list"
-                        fetchUrl="http://localhost:3030/data/beaches/"
+                        fetchUrl="http://localhost:3030/data/beaches"
                         listOptions={null}
+                        containerRef={mainContainerRef}
+                        hasUser={hasUser}
+                        />} 
+                    />
+                    <Route path="/my-beaches" element={<Content
+                        contentTitle="A list of your beaches"
+                        description="Here you can find a list of all the beaches that users have created in this application. All this information gathered in one place along with user's rating and experiences will help you pick the ideal beach for this summer holiday. By clicking on the desired beach you will find more information about it."
+                        secondHeading="Beach list"
+                        fetchUrl="http://localhost:3030/data/beaches"
+                        listOptions={{filter: `where=_ownerId%3D%22${auth._id}%22`}}
                         containerRef={mainContainerRef}
                         hasUser={hasUser}
                         />} 

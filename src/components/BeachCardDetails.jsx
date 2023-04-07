@@ -4,11 +4,13 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import Button from './Button';
 import BeachCardEdit from './BeachCardEdit';
+import BeachCardVote from './BeachCardVote';
 
 const BeachCardDetails = () => {
     const { beachId } = useParams();
     const [beach, setBeach] = React.useState({});
     const [edit, setEdit] = React.useState(false);
+    const [openVote, setOpenVote] = React.useState(false);
 
     const { auth, hasUser } = React.useContext(AuthContext);
 
@@ -52,6 +54,10 @@ const BeachCardDetails = () => {
         setEdit(false);
     }
 
+    const handleVoteClose = () => {
+        setOpenVote(false);
+    }
+
     const editBeach = async (data) => {
         try {
             if (hasUser) {
@@ -68,14 +74,34 @@ const BeachCardDetails = () => {
                 } else if (response.status === 204) {
                     return {};
                 } else {
-                    const result = await response.json();
-                    // const updatedList = list.map((beach) => {
-                    //     if (beach._id === id) {
-                    //         return result;
-                    //     };
-                    //     return beach;
-                    // })
-                    // setList([updatedList]);
+                    // const result = await response.json();
+                    setBeach(data);
+                    setEdit(false);
+                }
+            } else {
+                throw new Error('There is no user logged in.')
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    
+    const voteBeach = async (data) => {
+        try {
+            if (hasUser) {
+                const response = await fetch(`http://localhost:3030/data/beaches/${beachId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(data)
+                })
+                if (!response.ok) {
+                    throw new Error(response.status);
+                } else if (response.status === 204) {
+                    return {};
+                } else {
+                    // const result = await response.json();
                     setBeach(data);
                     setEdit(false);
                 }
@@ -91,6 +117,10 @@ const BeachCardDetails = () => {
         setEdit(true);
     }
 
+    const handleOpenVote = () => {
+        setOpenVote(true);
+    }
+
     return (
         <>
             <div className={styles.card}>
@@ -100,15 +130,19 @@ const BeachCardDetails = () => {
                 <p>{beach.description}
                 </p>
                 <div className="rating">
-                    Rating
-                    <p className="rating-stat">Beach: {beach.rating?.beach}</p>
-                    <p className="rating-stat">Infrastructure: {beach.rating?.infrastructure}</p>
-                    <p className="rating-stat">Prices: {beach.rating?.prices}</p>
+                    {beach.createdBy} rating:
+                    <p className="rating-stat">Beach: {beach.beachRating?.beach}</p>
+                    <p className="rating-stat">Infrastructure: {beach.beachRating?.infrastructure}</p>
+                    <p className="rating-stat">Prices: {beach.beachRating?.prices}</p>
                 </div>
-                {auth && auth._id === beach._ownerId && <Button color="yellow" text="Edit" type="button" onClickFunction={openEdit} />}
-                {auth && auth._id === beach._ownerId && <Button color="red" text="Delete" type="button" onClickFunction={handleDelete} />}
+                <div className={styles.buttonContainer}>
+                    {hasUser && auth._id === beach._ownerId && <Button color="yellow" text="Edit" type="button" onClickFunction={openEdit} />}
+                    {hasUser && auth._id === beach._ownerId && <Button color="red" text="Delete" type="button" onClickFunction={handleDelete} />}
+                    {hasUser && auth._id !== beach._ownerId && <Button color="blue" text="Vote" type="button" onClickFunction={handleOpenVote} />}
+                </div>
+                {openVote && <BeachCardVote beach={beach} handleClose={handleVoteClose} editBeach={editBeach} />}
             </div>
-            {edit && <BeachCardEdit beach={beach} handleClose={handleClose} editBeach={editBeach} />}
+            {edit && <BeachCardEdit beach={beach} handleClose={handleClose} editBeach={voteBeach} />}
         </>
     )
 }

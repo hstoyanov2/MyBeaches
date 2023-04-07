@@ -20,7 +20,7 @@ const BeachCardEdit = ({ beach, handleClose, editBeach }) => {
             setValues(state => ({...state, [e.target.name]: e.target.value}));
         }
     }
-
+    console.log(styles);
     const handleSubmit = (e) => {
         e.preventDefault();
         editBeach(values);

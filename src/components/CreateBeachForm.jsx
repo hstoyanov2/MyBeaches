@@ -2,28 +2,49 @@ import React from 'react';
 import styles from './CreateBeachFormStyles.module.css';
 import logo from '../static/beach-logo.png';
 import Button from './Button';
+import { AuthContext } from '../contexts/AuthContext';
 
 
 const CreateBeachForm = ({ handleClose, createBeach }) => {
     
+    const { auth } = React.useContext(AuthContext);
+    const userId = auth._id;
+    
     const initialValues = {
+        createdBy: auth.email,
         name: '',
         location: '',
         country: '',
         image: '',
         description: '',
         rating: {
+        },
+        beachRating: {
             beach: 0,
             infrastructure: 0,
-            prices: 0
-        }
+            prices: 0,
+        },
     };
 
     const [values, setValues] = React.useState(initialValues);
 
     const onChangeHandler = (e) => {
         if (e.target.name === 'beach' || e.target.name === 'infrastructure' || e.target.name === 'prices') {
-            setValues(state => ({...state, rating : { ...state.rating, [e.target.name]: e.target.value }}));
+            console.log(values.rating, values.rating.userId);
+            setValues(state => (
+                        {
+                            ...state,
+                            rating :
+                                { 
+                                    [userId] :
+                                        {
+                                            ...state.rating[userId], [e.target.name]: e.target.value
+                                        }
+                                },
+                            beachRating: {...state.beachRating, [e.target.name]: e.target.value}
+                        }
+                    )
+                );
         } else {
             setValues(state => ({...state, [e.target.name]: e.target.value}));
         }

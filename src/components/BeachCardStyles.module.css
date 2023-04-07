@@ -14,3 +14,10 @@
 .rating p {
   margin: 0px;
 }
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 10px;
+}
