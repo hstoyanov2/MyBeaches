@@ -3,7 +3,7 @@ import Navbar from './Navbar';
 import Content from './Content';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import BeachCardDetails from './BeachCardDetails';
 import BeachCardEdit from './BeachCardEdit';
@@ -13,6 +13,8 @@ const MainContainer = () => {
     const [hasUser, setHasUser] = React.useState(false);
 
     const mainContainerRef = React.useRef(null);
+
+    const navigate = useNavigate();
 
     const baseUrl = 'http://localhost:3030/users';
 
@@ -42,7 +44,6 @@ const MainContainer = () => {
                 return {};
             } else {
                 const result = await response.json();
-                console.log(result);
                 setAuth(result);
                 setHasUser(true);
             }
@@ -71,7 +72,6 @@ const MainContainer = () => {
                 return {};
             } else {
                 const result = await response.json();
-                console.log(result);
                 setAuth(result)
                 setHasUser(true);
             }
@@ -81,7 +81,6 @@ const MainContainer = () => {
     }
 
     const onLogout = async () => {
-        console.log('logout')
         try {
             const response = await fetch(`${baseUrl}${urlChoices.logout}`, {
                 method: "GET",
@@ -93,7 +92,7 @@ const MainContainer = () => {
             if (!response.ok) {
                 throw new Error(response.status);
             } else {
-                console.log(auth);
+                navigate('/');
                 setAuth({});
                 setHasUser(false);
             }
@@ -124,7 +123,7 @@ const MainContainer = () => {
                         description="text a lot of text here text a lot of text here text a lot of text here text a lot of text here "
                         secondHeading="Top rated locations:"
                         fetchUrl="http://localhost:3030/data/beaches"
-                        listOptions={null}
+                        listOptions={{sort: "sortBy=beachRating%20desc", count: 3}}
                         />} 
                     />
                     <Route path="/beaches" element={<Content

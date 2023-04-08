@@ -1,5 +1,7 @@
 import React from 'react';
+import styles from './NavbarStyles.module.css';
 import beachLogo from '../static/beach-logo.png';
+import weatherIcons from '../static/weatherIcons.json';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
@@ -15,7 +17,7 @@ const Navbar = () => {
         .then(data => setWeather(data))
     }, [])
 
-    // console.log(weather);
+    console.log(weather, weatherIcons, new Date());
 
     const navigate = useNavigate();
 
@@ -33,22 +35,22 @@ const Navbar = () => {
     // }, [hasUser])
 
     return ( hasUser ?
-        <nav className="nav">
-            <img src={beachLogo} alt="beach logo" className="nav-logo" onClick={navigateToHomePage}/>
-            <div className="nav-link">{weather?.current_weather?.weathercode}</div>
-            <NavLink to='/beaches' className="nav-link">Beaches</NavLink>
-            <NavLink to='/my-beaches' className="nav-link">My Beaches</NavLink>
-            <div className="nav-link">User: {<span style={{color: 'blue'}}>{auth.email}</span>}</div>
-            <NavLink to='/' className="nav-link" onClick={onLogout}>Logout</NavLink>
+        <nav className={styles.nav}>
+            <img src={beachLogo} alt="beach logo" className={styles.navLogo} onClick={navigateToHomePage}/>
+            <div className={styles.weatherDiv}><span className={styles.navSpan}>{weather?.current_weather?.temperature}°C</span><img src={weatherIcons[weather?.current_weather?.weathercode].day.image} alt="weather code icon" className={styles.weatherIcon}></img></div>
+            <NavLink to='/beaches' className={styles.navLink}>Beaches</NavLink>
+            <NavLink to='/my-beaches' className={styles.navLink}>My Beaches</NavLink>
+            <div className={styles.navLink}>User: {<span style={{color: 'blue'}}>{auth.email}</span>}</div>
+            <NavLink to='/' className={styles.navLink} onClick={onLogout}>Logout</NavLink>
         </nav> :
-        <nav className="nav">
-            <NavLink to="/" className="nav-logo" style={{}}>
-                <img src={beachLogo} alt="beach logo" className="nav-logo"/>
+        <nav className={styles.nav}>
+            <NavLink to="/" className={styles.navLogo} style={{}}>
+                <img src={beachLogo} alt="beach logo" className={styles.navLogo}/>
             </NavLink>
-            <div className="nav-link">{weather?.current_weather?.weathercode}</div>
-            <NavLink to='/beaches' className="nav-link">Beaches</NavLink>
-            <NavLink to='/login' className="nav-link">Login</NavLink>
-            <NavLink to='/register' className="nav-link">Register</NavLink>
+            <div className={styles.weatherDiv}><span className={styles.navSpan}>{weather?.current_weather?.temperature}°C</span><img src={weatherIcons[weather?.current_weather?.weathercode].day.image}alt="weather code icon" className={styles.weatherIcon}></img></div>
+            <NavLink to='/beaches' className={styles.navLink}>Beaches</NavLink>
+            <NavLink to='/login' className={styles.navLink}>Login</NavLink>
+            <NavLink to='/register' className={styles.navLink}>Register</NavLink>
         </nav>
     )
     

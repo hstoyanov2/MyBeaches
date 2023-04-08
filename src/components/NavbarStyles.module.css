@@ -1,0 +1,45 @@
+.nav {
+  display: flex;
+  /* align-content: end; */
+}
+
+.navLink {
+  text-decoration: none;
+  /* margin-left: auto; */
+  color: white;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 24px;
+  margin: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  padding-top: 20px;
+  margin-top: 10px;
+}
+
+.navLogo {
+  background-image: url("../static/beach-logo.png");
+  height: 80px;
+  width: 100px;
+  margin-right: auto;
+}
+
+.weatherDiv {
+    text-decoration: none;
+    display: flex;
+    justify-content: row;
+}
+
+.navSpan {
+    text-decoration: none;
+    /* margin-left: auto; */
+    color: white;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 24px;
+    margin: 30px 20px;
+    display: inline;
+  }
+
+.weatherIcon {
+    height: 80px;
+    width: 100px;
+}

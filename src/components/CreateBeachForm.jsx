@@ -7,9 +7,8 @@ import { AuthContext } from '../contexts/AuthContext';
 
 const CreateBeachForm = ({ handleClose, createBeach }) => {
     
-    const { auth } = React.useContext(AuthContext);
-    const userId = auth._id;
-    
+    const {auth} = React.useContext(AuthContext);
+
     const initialValues = {
         createdBy: auth.email,
         name: '',
@@ -18,33 +17,23 @@ const CreateBeachForm = ({ handleClose, createBeach }) => {
         image: '',
         description: '',
         rating: {
+            beach: 1,
+            infrastructure: 1,
+            prices: 1,
         },
-        beachRating: {
-            beach: 0,
-            infrastructure: 0,
-            prices: 0,
-        },
+        beachRating: 1,
     };
 
     const [values, setValues] = React.useState(initialValues);
 
     const onChangeHandler = (e) => {
         if (e.target.name === 'beach' || e.target.name === 'infrastructure' || e.target.name === 'prices') {
-            console.log(values.rating, values.rating.userId);
-            setValues(state => (
-                        {
-                            ...state,
-                            rating :
-                                { 
-                                    [userId] :
-                                        {
-                                            ...state.rating[userId], [e.target.name]: e.target.value
-                                        }
-                                },
-                            beachRating: {...state.beachRating, [e.target.name]: e.target.value}
-                        }
-                    )
-                );
+            if (e.target.value > 5) {
+                e.target.value = 5;
+            } else if (e.target.value < 1) {
+                e.target.value = 1;
+            };
+            setValues(state => ({...state, rating : { ...state.rating, [e.target.name]: e.target.value }}));
         } else {
             setValues(state => ({...state, [e.target.name]: e.target.value}));
         }
@@ -52,7 +41,22 @@ const CreateBeachForm = ({ handleClose, createBeach }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        createBeach(values);
+        const rating = ((Number(values.rating.beach) + Number(values.rating.infrastructure) + Number(values.rating.prices)) / 3).toFixed(2);
+        const newValues = {
+            createdBy: auth.email,
+            name: values.name,
+            location: values.location,
+            country: values.country,
+            image: values.image,
+            description: values.description,
+            rating: {
+                beach: values.rating.beach,
+                infrastructure: values.rating.infrastructure,
+                prices: values.rating.prices,
+            },
+            beachRating: Number(rating),
+        }
+        createBeach(newValues);
     }
 
     return (
@@ -71,35 +75,35 @@ const CreateBeachForm = ({ handleClose, createBeach }) => {
                     </div>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Image</label>
-                        <input className={styles.input} name="image" type="text" placeholder="8 characters or more" onChange={onChangeHandler}/>
+                        <input className={styles.input} name="image" type="text" placeholder="A picture from the beach" onChange={onChangeHandler}/>
                     </div>
                 </div>
                 <div className={styles.innerDiv}>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Location</label>
-                        <input className={styles.input} name="location" type="text" placeholder="8 characters or more" onChange={onChangeHandler}/>
+                        <input className={styles.input} name="location" type="text" placeholder="Corfu" onChange={onChangeHandler}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Country</label>
-                        <input className={styles.input} name="country" type="text" placeholder="8 characters or more" onChange={onChangeHandler}/>
+                        <input className={styles.input} name="country" type="text" placeholder="Greece" onChange={onChangeHandler}/>
                     </div>
                 </div>
                 <div className={styles.inputDiv}>
                     <label className={styles.label} htmlFor="">Description</label>
-                    <textarea className={styles.textArea} name="description" type="text" placeholder="8 characters or more" onChange={onChangeHandler}/>
+                    <textarea className={styles.textArea} name="description" type="text" placeholder="Write something for the beach" onChange={onChangeHandler}/>
                 </div>    
                 <div className={styles.innerDiv}>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Beach rating</label>
-                        <input className={styles.inputRating} name="beach" type="number" placeholder="8 characters or more" onChange={onChangeHandler}/>
+                        <input className={styles.inputRating} name="beach" type="number" placeholder="1 to 5" onChange={onChangeHandler}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Infrastructure rating</label>
-                        <input className={styles.inputRating} name="infrastructure" type="number" placeholder="8 characters or more" onChange={onChangeHandler}/>
+                        <input className={styles.inputRating} name="infrastructure" type="number" placeholder="1 to 5" onChange={onChangeHandler}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Prices rating</label>
-                        <input className={styles.inputRating} name="prices" type="number" placeholder="8 characters or more" onChange={onChangeHandler}/>
+                        <input className={styles.inputRating} name="prices" type="number" placeholder="1 to 5" onChange={onChangeHandler}/>
                     </div>
                 </div>
                 <div className={styles.buttonContainer}>

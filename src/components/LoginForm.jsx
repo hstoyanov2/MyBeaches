@@ -41,7 +41,7 @@ const LoginForm = () => {
             <label className={styles.label} htmlFor="">Email</label>
             <input className={styles.input} name="email" type="email" placeholder="example@domain.com" onChange={onChangeHandler} />
             <label className={styles.label} htmlFor="">Password</label>
-            <input className={styles.input} name="password" type="password" placeholder="8 characters or more" onChange={onChangeHandler} />
+            <input className={styles.input} name="password" type="password" placeholder="********" onChange={onChangeHandler} />
             <div className={styles.buttonContainer}>
                 <Button color="green" text="Log in" type="submit" />
             </div>
