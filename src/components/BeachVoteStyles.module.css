@@ -1,0 +1,50 @@
+.voteContainer {
+  margin: 2px;
+  border: 1px solid gray;
+}
+
+.voteHeading {
+  height: 26px;
+  margin: 2px 2px 0px 2px;
+  border: 1px solid gray;
+  font-size: 14px;
+  padding-top: 4px;
+  padding-left: 4px;
+}
+
+.voteButton {
+  float: right;
+  margin-right: 4px;
+}
+
+.voteRating {
+  display: flex;
+  font-size: 14px;
+  margin: 2px 2px;
+  border: 1px solid gray;
+}
+
+.voteRate {
+  display: flex;
+  align-items: stretch;
+  width: fit-content;
+  margin: 2px 1px;
+  padding-left: 4px;
+}
+
+.voteCategory {
+  padding-top: 3px;
+}
+
+.stars {
+  padding-left: 2px;
+  padding-top: 1px;
+}
+
+.voteComment {
+  height: 60px;
+  font-size: 14px;
+  margin: 2px 2px;
+  border: 1px solid gray;
+  padding: 4px;
+}

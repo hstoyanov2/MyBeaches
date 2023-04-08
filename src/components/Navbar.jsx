@@ -37,7 +37,7 @@ const Navbar = () => {
     return ( hasUser ?
         <nav className={styles.nav}>
             <img src={beachLogo} alt="beach logo" className={styles.navLogo} onClick={navigateToHomePage}/>
-            <div className={styles.weatherDiv}><span className={styles.navSpan}>{weather?.current_weather?.temperature}°C</span><img src={weatherIcons[weather?.current_weather?.weathercode].day.image} alt="weather code icon" className={styles.weatherIcon}></img></div>
+            <div className={styles.weatherDiv}><span className={styles.navSpan}>{weather?.current_weather?.temperature}°C</span><img src={weatherIcons[weather?.current_weather?.weathercode]?.day.image} alt="weather code icon" className={styles.weatherIcon}></img></div>
             <NavLink to='/beaches' className={styles.navLink}>Beaches</NavLink>
             <NavLink to='/my-beaches' className={styles.navLink}>My Beaches</NavLink>
             <div className={styles.navLink}>User: {<span style={{color: 'blue'}}>{auth.email}</span>}</div>
@@ -47,7 +47,7 @@ const Navbar = () => {
             <NavLink to="/" className={styles.navLogo} style={{}}>
                 <img src={beachLogo} alt="beach logo" className={styles.navLogo}/>
             </NavLink>
-            <div className={styles.weatherDiv}><span className={styles.navSpan}>{weather?.current_weather?.temperature}°C</span><img src={weatherIcons[weather?.current_weather?.weathercode].day.image}alt="weather code icon" className={styles.weatherIcon}></img></div>
+            <div className={styles.weatherDiv}><span className={styles.navSpan}>{weather?.current_weather?.temperature}°C</span><img src={weatherIcons[weather?.current_weather?.weathercode]?.day.image}alt="weather code icon" className={styles.weatherIcon}></img></div>
             <NavLink to='/beaches' className={styles.navLink}>Beaches</NavLink>
             <NavLink to='/login' className={styles.navLink}>Login</NavLink>
             <NavLink to='/register' className={styles.navLink}>Register</NavLink>

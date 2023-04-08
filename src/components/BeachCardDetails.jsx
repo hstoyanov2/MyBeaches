@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './BeachCardDetailsStyles.module.css';
+import { stars } from '../utils/stars';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import Button from './Button';
@@ -167,16 +168,15 @@ const BeachCardDetails = () => {
     return (
         <>
             <div className={styles.card}>
-                <img style={{width: '450px', height: '325px'}} src={beach.image} alt="Beach Image" />
-                <h2 className="card-heading">{beach.name}</h2>
-                <h4 className="card-location">Location: {beach.location}, {beach.country}</h4>
-                <p>{beach.description}
-                </p>
-                <div className="rating">
+                <img className={styles.cardImage} src={beach.image} alt="Beach Image" />
+                <h2 className={styles.cardHeading}>{beach.name}</h2>
+                <h4 className={styles.cardLocation}>Location: {beach.location}, {beach.country}</h4>
+                <p className={styles.description}>{beach.description}</p>
+                <div className={styles.rating}>
                     {beach.createdBy} rating:
-                    <p className="rating-stat">Beach: {beach.rating?.beach}</p>
-                    <p className="rating-stat">Infrastructure: {beach.rating?.infrastructure}</p>
-                    <p className="rating-stat">Prices: {beach.rating?.prices}</p>
+                    <div className="rating-stat">Beach: {stars[beach.rating?.beach]}</div>
+                    <div className="rating-stat">Infrastructure: {stars[beach.rating?.infrastructure]}</div>
+                    <div className="rating-stat">Prices: {stars[beach.rating?.prices]}</div>
                 </div>
                 <div className={styles.buttonContainer}>
                     {hasUser && auth._id === beach._ownerId && <Button color="yellow" text="Edit" type="button" onClickFunction={openEdit} />}
@@ -186,7 +186,7 @@ const BeachCardDetails = () => {
                 <div>
                     {votes.length > 0 && votes.map((vote) => {
                         return (
-                            <BeachVote vote={vote} handleDeleteVote={handleDeleteVote} />
+                            <BeachVote key={vote._id} vote={vote} handleDeleteVote={handleDeleteVote} />
                         )
                     })}
                 </div>

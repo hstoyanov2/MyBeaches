@@ -2,9 +2,9 @@
     display: block;
     position: relative;
     z-index: 1;
-    height: 300px;
-    width: 250px;
-    margin: 0px auto;
+    height: 650px;
+    width: 400px;
+    margin: -600px auto;
     background: linear-gradient(
         to bottom,
         rgb(101, 209, 255) 0%,
@@ -51,7 +51,7 @@
     display: flex;
     flex-direction: column;
     padding-top: 10px;
-    width: 250px;
+    width: 400px;
     margin: auto;
     
 }
@@ -88,6 +88,7 @@
 
 .textArea {
     height: 100px;
+    width: 252px;
     border: 2px solid gray;
     background: transparent;
 }
@@ -95,7 +96,7 @@
 .inputRating {
     display: block;
     height: 30px;
-    width: 192px;
+    width: 252px;
     border-left: 0px;
     border-top: 0px;
     border-right: 0px;
@@ -113,6 +114,6 @@
 .buttonContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 10px;
 }

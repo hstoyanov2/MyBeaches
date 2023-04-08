@@ -3,7 +3,9 @@
   background-color: white;
   margin: 15px auto;
   border: 1px solid gray;
-  max-width: 450px;
+  max-width: 500px;
+  max-height: 800px;
+  overflow-y: auto;
 }
 
 .card:hover {
@@ -11,8 +13,23 @@
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.45)
 }
 
-.rating p {
+.cardImage {
+  width: 500px;
+  height: 360px;
+}
+
+.cardHeading {
+  display: flex;
+  justify-content: center;
+}
+
+.cardLocation {
+  font-size: 18px;
+}
+
+.rating {
   margin: 0px;
+  font-size: 18px;
 }
 
 .buttonContainer {

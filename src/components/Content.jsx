@@ -76,7 +76,7 @@ const Content = (props) => {
         <div className="content-div">
             <h1 style={{margin: 'auto'}}>{contentTitle}</h1>
             <p style={{margin: 'auto', maxWidth: '500px'}}>{description}</p>
-            <h3 style={{margin: 'auto', paddingTop: '100px'}}>{secondHeading}</h3>
+            <h3 style={{margin: 'auto', paddingTop: '10px'}}>{secondHeading}</h3>
             <div className="beach-list">
                 {Object.values(list).map(beach => <BeachCard card={beach} key={beach._id}/>)}
             </div>
