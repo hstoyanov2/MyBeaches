@@ -7,6 +7,16 @@ import { AuthContext } from '../contexts/AuthContext';
 
 const CreateBeachForm = ({ handleClose, createBeach }) => {
     
+    const errors = {
+        name: true,
+        image: true,
+        location: true,
+        country: true,
+    }
+    
+    const [blurErrors, setErrors] = React.useState(errors);
+    const [errorMessage, setErrorMessage] = React.useState('');
+    
     const {auth} = React.useContext(AuthContext);
 
     const initialValues = {
@@ -56,7 +66,32 @@ const CreateBeachForm = ({ handleClose, createBeach }) => {
             },
             beachRating: Number(rating),
         }
-        createBeach(newValues);
+        let fields = [];
+        if (values.name === '') {
+            fields.push('name');
+        }
+        if (values.image === '') {
+            fields.push('image');
+        }
+        if (values.location === '') {
+            fields.push('location');
+        }
+        if (values.country === '') {
+            fields.push('country');
+        }
+        if (fields.length > 0) {
+            setErrorMessage(`Please fill all required fields: ${fields.join(', ')}.`);
+        } else {
+            createBeach(newValues);
+        }
+    }
+
+    const handleOnBlurError = (e) => {
+        if (e.target.value === '') {
+            setErrors((errors) => ({...errors, [e.target.name]: true}))
+        } else {
+            setErrors((errors) => ({...errors, [e.target.name]: false}))
+        }
     }
 
     return (
@@ -66,26 +101,27 @@ const CreateBeachForm = ({ handleClose, createBeach }) => {
                     <img className={styles.logo} src={logo} alt="logo" />
                 </div>
                 <h2 className={styles.heading}>CREATE BEACH</h2>
+                <h4 style={{color: 'red'}}>{errorMessage}</h4>
             </div>
             <form className={styles.form} onSubmit={handleSubmit}>        
                 <div className={styles.innerDiv}>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Name</label>
-                        <input className={styles.input} name="name" type="text" placeholder="Cool beach" onChange={onChangeHandler}/>
+                        <input className={styles.input} name="name" type="text" placeholder="Cool beach" onChange={onChangeHandler} onBlur={handleOnBlurError} style={{ borderBottom: blurErrors.name ? '2px solid red' : ''}}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Image</label>
-                        <input className={styles.input} name="image" type="text" placeholder="A picture from the beach" onChange={onChangeHandler}/>
+                        <input className={styles.input} name="image" type="text" placeholder="A picture from the beach" onChange={onChangeHandler} onBlur={handleOnBlurError} style={{ borderBottom: blurErrors.image ? '2px solid red' : ''}}/>
                     </div>
                 </div>
                 <div className={styles.innerDiv}>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Location</label>
-                        <input className={styles.input} name="location" type="text" placeholder="Corfu" onChange={onChangeHandler}/>
+                        <input className={styles.input} name="location" type="text" placeholder="Corfu" onChange={onChangeHandler} onBlur={handleOnBlurError} style={{ borderBottom: blurErrors.location ? '2px solid red' : ''}}/>
                     </div>
                     <div className={styles.inputDiv}>
                         <label className={styles.label} htmlFor="">Country</label>
-                        <input className={styles.input} name="country" type="text" placeholder="Greece" onChange={onChangeHandler}/>
+                        <input className={styles.input} name="country" type="text" placeholder="Greece" onChange={onChangeHandler} onBlur={handleOnBlurError} style={{ borderBottom: blurErrors.country ? '2px solid red' : ''}}/>
                     </div>
                 </div>
                 <div className={styles.inputDiv}>
