@@ -14,9 +14,14 @@ const Content = (props) => {
     
     const navigate = useNavigate();
 
-    let url = listOptions?.filter ? `${fetchUrl}?${listOptions?.filter}` : fetchUrl;
-    url = listOptions?.sort ? `${fetchUrl}?${listOptions?.sort}` : fetchUrl;
+    let url = fetchUrl;
     
+    if (listOptions?.filter) {
+        url = `${fetchUrl}?${listOptions?.filter}`;
+    } else if (listOptions?.sort) {
+        url = `${fetchUrl}?${listOptions?.sort}`;
+    }
+
     React.useEffect(() => {
         try {
             fetch(url)
@@ -37,7 +42,7 @@ const Content = (props) => {
 
         }
         
-    }, [fetchUrl, url])
+    }, [fetchUrl, url, listOptions?.count])
 
     const handleClose = () => {
         setCreate(false);
@@ -53,9 +58,9 @@ const Content = (props) => {
                         "X-Authorization": auth.accessToken,
                     },
                     body: JSON.stringify(data)
-                })
+                });
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    throw new Error(`The server at url: ${response.url} responded with this error: ${response.status} - ${response.statusText}.`);
                 } else if (response.status === 204) {
                     return {};
                 } else {
@@ -68,19 +73,19 @@ const Content = (props) => {
                 throw new Error('There is no user logged in.')
             }
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     }
 
     return (
         <div className="content-div">
-            <h1 style={{margin: 'auto'}}>{contentTitle}</h1>
-            <p style={{margin: 'auto', maxWidth: '500px'}}>{description}</p>
-            <h3 style={{margin: 'auto', paddingTop: '10px'}}>{secondHeading}</h3>
+            <h1 style={{margin: 'auto', color: 'white'}}>{contentTitle}</h1>
+            <p style={{margin: 'auto', maxWidth: '500px', color: 'white'}}>{description}</p>
+            <h2 style={{margin: 'auto', paddingTop: '10px', color: 'white'}}>{secondHeading}</h2>
             <div className="beach-list">
                 {Object.values(list).map(beach => <BeachCard card={beach} key={beach._id}/>)}
             </div>
-            {hasUser && <Button color="blue" text="Add beach" type="button" onClickFunction={() => {setCreate(true)}} customStyles={{width: '200px', margin: 'auto'}} />}
+            {hasUser && <Button color="blue" text="Add beach" type="button" onClickFunction={() => {setCreate(true)}} customStyles={{width: '200px', margin: 'auto', marginTop: '25px'}} />}
             {create && <CreateBeachForm handleClose={handleClose} createBeach={createBeach} />}
         </div>
     )

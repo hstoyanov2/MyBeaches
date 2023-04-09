@@ -46,7 +46,7 @@ const BeachCardDetails = () => {
                 },
             });
             if (!response.ok) {
-                throw new Error(response.status);
+                throw new Error(`The server at url: ${response.url} responded with this error: ${response.status} - ${response.statusText}.`);
             } else if (response.status === 204) {
                 return {};
             } else {
@@ -54,7 +54,7 @@ const BeachCardDetails = () => {
                 navigate('/beaches');
             }
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     }
 
@@ -78,7 +78,7 @@ const BeachCardDetails = () => {
                     body: JSON.stringify(data)
                 })
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    throw new Error(`The server at url: ${response.url} responded with this error: ${response.status} - ${response.statusText}.`);
                 } else if (response.status === 204) {
                     return {};
                 } else {
@@ -90,13 +90,12 @@ const BeachCardDetails = () => {
                 throw new Error('There is no user logged in.')
             }
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     }
     
     const voteBeach = async (data) => {
         const userVote = votes.filter((vote) => vote._ownerId === auth._id);
-        console.log(userVote);
         const url = userVote.length > 0 ? `http://localhost:3030/data/votes/${userVote[0]._id}` : "http://localhost:3030/data/votes/"
         const method =  userVote.length > 0 ? "PUT" : "POST"
         try {
@@ -110,7 +109,7 @@ const BeachCardDetails = () => {
                     body: JSON.stringify(data)
                 })
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    throw new Error(`The server at url: ${response.url} responded with this error: ${response.status} - ${response.statusText}.`);
                 } else if (response.status === 204) {
                     return {};
                 } else {
@@ -124,13 +123,12 @@ const BeachCardDetails = () => {
                         setVotes([...votes, result]);
                         setOpenVote(false);
                     }
-                    
                 }
             } else {
                 throw new Error('There is no user logged in.')
             }
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     }
     
@@ -144,7 +142,7 @@ const BeachCardDetails = () => {
                 },
             });
             if (!response.ok) {
-                throw new Error(response.status);
+                throw new Error(`The server at url: ${response.url} responded with this error: ${response.status} - ${response.statusText}.`);
             } else if (response.status === 204) {
                 return {};
             } else {
@@ -153,7 +151,7 @@ const BeachCardDetails = () => {
                 setVotes([...votes.filter((vote) => vote._id !== id)])
             }
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     }
 
@@ -168,7 +166,7 @@ const BeachCardDetails = () => {
     return (
         <>
             <div className={styles.card}>
-                <img className={styles.cardImage} src={beach.image} alt="Beach Image" />
+                <img className={styles.cardImage} src={beach.image} alt="Beach" />
                 <h2 className={styles.cardHeading}>{beach.name}</h2>
                 <h4 className={styles.cardLocation}>Location: {beach.location}, {beach.country}</h4>
                 <p className={styles.description}>{beach.description}</p>

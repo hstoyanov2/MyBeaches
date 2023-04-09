@@ -7,6 +7,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import BeachCardDetails from './BeachCardDetails';
 import BeachCardEdit from './BeachCardEdit';
+import NotFoundPage from './NotFoundPage';
 
 const MainContainer = () => {
     const [auth, setAuth] = React.useState([]);
@@ -48,7 +49,7 @@ const MainContainer = () => {
                 setHasUser(true);
             }
         } catch (err) {
-            
+            alert(err);
         }
     }
 
@@ -76,7 +77,7 @@ const MainContainer = () => {
                 setHasUser(true);
             }
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     }
 
@@ -97,7 +98,7 @@ const MainContainer = () => {
                 setHasUser(false);
             }
         } catch (err) {
-            console.log(err);
+            alert(err);
         }
     }
 
@@ -120,7 +121,7 @@ const MainContainer = () => {
                 <Routes>
                     <Route path="/" element={<Content
                         contentTitle="Find the perfect beach"
-                        description="text a lot of text here text a lot of text here text a lot of text here text a lot of text here "
+                        description="Welcome to our new web application designed for helping you choose your perfect holiday this summer(or maybe other season). You can also register and add beaches of your own, comment and rate other people beaches or just browse them. Have a nice time in our platform and don't forget to rate it."
                         secondHeading="Top rated locations:"
                         fetchUrl="http://localhost:3030/data/beaches"
                         listOptions={{sort: "sortBy=beachRating%20desc", count: 3}}
@@ -138,7 +139,7 @@ const MainContainer = () => {
                     />
                     <Route path="/my-beaches" element={<Content
                         contentTitle="A list of your beaches"
-                        description="Here you can find a list of all the beaches that users have created in this application. All this information gathered in one place along with user's rating and experiences will help you pick the ideal beach for this summer holiday. By clicking on the desired beach you will find more information about it."
+                        description="Here you can find a list of your beaches that you have created in this application. All this information gathered in one place along with user's rating and experiences will help you pick the ideal beach for this summer holiday. By clicking on the desired beach you will find more information about it."
                         secondHeading="Beach list"
                         fetchUrl="http://localhost:3030/data/beaches"
                         listOptions={{filter: `where=_ownerId%3D%22${auth._id}%22`}}
@@ -150,6 +151,7 @@ const MainContainer = () => {
                     <Route path="/register" element={<RegisterForm />} />
                     <Route path="/beaches/:beachId" element={<BeachCardDetails />} />
                     <Route path="/beaches/:beachId/edit" element={<BeachCardEdit />} />
+                    <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </div>
         </AuthContext.Provider>

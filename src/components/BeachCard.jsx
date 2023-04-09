@@ -16,7 +16,7 @@ const BeachCard = ({ card }) => {
     return (
         <>
             <div className={styles.card}>
-                <img className={styles.cardImage} src={image} alt="Beach Image" />
+                <img className={styles.cardImage} src={image} alt="Beach" />
                 <h2 className={styles.cardHeading}>{name}</h2>
                 <h4 className={styles.cardLocation}>Location: {location}, {country}</h4>
                 <div className={styles.rating}>

@@ -17,23 +17,12 @@ const Navbar = () => {
         .then(data => setWeather(data))
     }, [])
 
-    console.log(weather, weatherIcons, new Date());
-
     const navigate = useNavigate();
 
     const navigateToHomePage = () => {
         navigate('/')
     }
     
-    // React.useEffect(() => {
-    //     if (Object.keys(userAuth).length === 0 || userAuth === undefined || userAuth === null) {
-    //         hasUser(false);
-    //     } else {
-    //         hasUser(true);
-    //     }
-
-    // }, [hasUser])
-
     return ( hasUser ?
         <nav className={styles.nav}>
             <img src={beachLogo} alt="beach logo" className={styles.navLogo} onClick={navigateToHomePage}/>

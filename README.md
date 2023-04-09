@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+# My Beaches React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app is for creating beaches with different users, rating and commenting them.
+It has an authentication service, several list with beaches with different logic, a form for creating beaches and one for posting rates and comments. You can also edit or delete your beaches and rates with comments.
 
 ## Available Scripts
 

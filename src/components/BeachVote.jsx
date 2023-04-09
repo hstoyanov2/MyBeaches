@@ -12,11 +12,13 @@ const BeachCard = ({ vote, handleDeleteVote }) => {
         handleDeleteVote(vote._id);
     }
     
+    const formatDate = (new Date(vote._createdOn)).toLocaleString();
+
     return (
         <div className={styles.voteContainer}>
             <div className={styles.voteHeading}>
-                <span>{vote.createdBy} rating and comment:</span>
-                <span>{vote._createdOn}</span>
+                <span>{vote.createdBy} rating and comment at:</span>
+                <span>{formatDate}</span>
                 <div className={styles.voteButton}>
                     {vote._ownerId === auth._id && <Button color="red" text="Delete" type="button" onClickFunction={handleClick} customStyles={{width: '65px', margin: 'auto', height: '22px', textAlign: 'center', fontSize: '14px'}} />}
                 </div>
